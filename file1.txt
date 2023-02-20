@@ -1,0 +1,2 @@
+Ivanov
+[com.javarush.task.task20.task2001.Asset@c1bd6ad2, com.javarush.task.task20.task2001.Asset@a20f3c9a]
