@@ -1,6 +1,8 @@
 package com.javarush.task.task08.task0827;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Locale;
 
 /* 
 Работа с датой
@@ -12,6 +14,9 @@ public class Solution {
     }
 
     public static boolean isDateOdd(String date) {
-        return true;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d yyyy", Locale.US);
+        LocalDate parsedDate = LocalDate.parse(date, formatter);
+        int dayOfYear = parsedDate.getDayOfYear();
+        return dayOfYear % 2 != 0;
     }
 }

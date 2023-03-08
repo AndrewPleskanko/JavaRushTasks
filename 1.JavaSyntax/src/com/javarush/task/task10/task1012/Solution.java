@@ -2,7 +2,10 @@ package com.javarush.task.task10.task1012;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 
 /* 
 Количество букв
@@ -21,21 +24,22 @@ public class Solution {
 
         // Ввод строк
         ArrayList<String> list = new ArrayList<String>();
-        for (int i = 0; i < 1; i++) {
+        for (int i = 0; i < 10; i++) {
             String line = reader.readLine();
             list.add(line.toLowerCase());
         }
-
-        HashMap<Character, Integer> result = new HashMap<>();
-        char[] charist;
-        for (String s : list) {
-            char[] charit = s.toCharArray();
-            for (int i = 0; i < charit.length; i++) {
-                result.put(charit[i], Collections.frequency(list, charit[i]));
+        HashMap<Character, Integer> counts = new HashMap<>();
+        for (String line : list) {
+            for (char c : line.toCharArray()) {
+                if (alphabet.contains(c)) {
+                    counts.put(c, counts.getOrDefault(c, 0) + 1);
+                }
             }
-            System.out.println(result);
         }
 
-
+        for (char c : alphabet) {
+            int count = counts.getOrDefault(c, 0);
+            System.out.println(c + " " + count);
+        }
     }
 }
