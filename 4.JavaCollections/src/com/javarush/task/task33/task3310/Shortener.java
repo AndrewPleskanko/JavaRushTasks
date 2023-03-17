@@ -2,6 +2,8 @@ package com.javarush.task.task33.task3310;
 
 import com.javarush.task.task33.task3310.strategy.StorageStrategy;
 
+import java.io.IOException;
+
 public class Shortener {
     private Long lastId = Long.valueOf(0);
     private StorageStrategy storageStrategy;
@@ -10,7 +12,7 @@ public class Shortener {
         this.storageStrategy = storageStrategy;
     }
 
-    public synchronized Long getId(String string) {
+    public synchronized Long getId(String string) throws IOException {
         if (storageStrategy.containsValue(string)) {
             return storageStrategy.getKey(string);
         } else {
@@ -19,7 +21,7 @@ public class Shortener {
         }
     }
 
-    public synchronized String getString(Long id) {
+    public synchronized String getString(Long id) throws IOException {
         return storageStrategy.getValue(id);
     }
 

@@ -52,11 +52,13 @@ public class OurHashMapStorageStrategy implements StorageStrategy {
     }
 
     void addEntry(int hash, Long key, String value, int bucketIndex) {
-        Entry e = table[bucketIndex];
-        table[bucketIndex] = new Entry(hash, key, value, e);
-        if (size++ >= threshold) {
+        if ((size >= threshold) && (null != table[bucketIndex])) {
             resize(2 * table.length);
+            hash = (null != key) ? hash(key) : 0;
+            bucketIndex = indexFor(hash, table.length);
         }
+
+        createEntry(hash, key, value, bucketIndex);
     }
 
     void createEntry(int hash, Long key, String value, int bucketIndex) {

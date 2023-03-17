@@ -3,17 +3,18 @@ package com.javarush.task.task33.task3310;
 import com.javarush.task.task33.task3310.strategy.HashMapStorageStrategy;
 import com.javarush.task.task33.task3310.strategy.StorageStrategy;
 
+import java.io.IOException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
 public class Solution {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         Solution solution = new Solution();
         solution.testStrategy(new HashMapStorageStrategy(), 10000L);
     }
 
-    public static Set<Long> getIds(Shortener shortener, Set<String> strings) {
+    public static Set<Long> getIds(Shortener shortener, Set<String> strings) throws IOException {
         Set<Long> setKeys = new HashSet<>();
         for (String s : strings) {
             setKeys.add(shortener.getId(s));
@@ -21,7 +22,7 @@ public class Solution {
         return setKeys;
     }
 
-    public static Set<String> getStrings(Shortener shortener, Set<Long> keys) {
+    public static Set<String> getStrings(Shortener shortener, Set<Long> keys) throws IOException {
         Set<String> setString = new HashSet<>();
         for (Long s : keys) {
             setString.add(shortener.getString(s));
@@ -29,7 +30,7 @@ public class Solution {
         return setString;
     }
 
-    public static void testStrategy(StorageStrategy strategy, long elementsNumber) {
+    public static void testStrategy(StorageStrategy strategy, long elementsNumber) throws IOException {
         System.out.println(strategy.getClass().getSimpleName());
         Set<String> strings = new HashSet<>();
         for (long i = 0; i < elementsNumber; i++) {
