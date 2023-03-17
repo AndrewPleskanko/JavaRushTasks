@@ -4,3 +4,5 @@ target
 *.log
 temp
 *.iml
+JavaRushPlugin.properties
+Instruction.png
