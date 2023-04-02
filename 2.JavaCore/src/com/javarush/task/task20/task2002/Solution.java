@@ -43,11 +43,39 @@ public class Solution {
         public List<User> users = new ArrayList<>();
 
         public void save(OutputStream outputStream) throws Exception {
-            //implement this method - реализуйте этот метод
+            DataOutputStream outToFile = new DataOutputStream(outputStream);
+
+            outToFile.writeInt(users.size());
+            for (User user : users) {
+                String firstName = (user.getFirstName() == null) ? "null" : user.getFirstName();
+                outToFile.writeUTF(firstName);
+                String lastName = (user.getLastName() == null) ? "null" : user.getLastName();
+                outToFile.writeUTF(lastName);
+                outToFile.writeLong(user.getBirthDate().getTime());
+                outToFile.writeBoolean(user.isMale());
+                outToFile.writeUTF(user.getCountry().name());
+            }
+            outToFile.flush();
         }
 
         public void load(InputStream inputStream) throws Exception {
             //implement this method - реализуйте этот метод
+            DataInputStream fromFile = new DataInputStream(inputStream);
+            int usersCount = fromFile.readInt();
+            for (int i = 0; i < usersCount; i++) {
+                User user = new User();
+
+                String firstName = fromFile.readUTF();
+                if (firstName.equals("null")) firstName = null;
+                user.setFirstName(firstName);
+                String lastName = fromFile.readUTF();
+                if (lastName.equals("null")) lastName = null;
+                user.setLastName(lastName);
+                user.setBirthDate(new Date(fromFile.readLong()));
+                user.setMale(fromFile.readBoolean());
+                user.setCountry(User.Country.valueOf(fromFile.readUTF()));
+                users.add(user);
+            }
         }
 
         @Override

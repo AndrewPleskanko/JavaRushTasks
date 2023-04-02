@@ -70,26 +70,22 @@ public class Solution {
 
         public void save(OutputStream outputStream) throws Exception {
             //implement this method - реализуйте этот метод
-            PrintWriter pw = new PrintWriter(outputStream);
-
-            pw.println(name);
-            pw.flush();
-            if (assets.size() > 0) {
-                pw.println(assets);
+            PrintWriter pr = new PrintWriter(outputStream);
+            pr.println(this.name);
+            for (Asset a : assets) {
+                pr.println(a.getName());
+                pr.println(a.getPrice());
             }
-            pw.close();
+            pr.flush();
         }
 
         public void load(InputStream inputStream) throws Exception {
             //implement this method - реализуйте этот метод
-            BufferedReader br = new BufferedReader(new InputStreamReader(inputStream));
-            this.name = br.readLine();
-            while (br.ready() && assets.size() > 0) {
-                String assetName = br.readLine();
-                double assetPrice = Double.parseDouble(br.readLine());
-                assets.add(new Asset(assetName, assetPrice));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+            this.name = reader.readLine();
+            while (reader.ready()) {
+                this.assets.add(new Asset(reader.readLine(), Double.parseDouble(reader.readLine())));
             }
-            br.close();
         }
     }
 }

@@ -3,6 +3,7 @@ package com.javarush.task.task09.task0930;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Collections;
 
 /* 
 Задача по алгоритмам Ӏ Java Syntax: 9 уровень, 11 лекция
@@ -27,7 +28,37 @@ public class Solution {
     }
 
     public static void sort(String[] array) {
-        // напишите тут ваш код
+        ArrayList<Integer> integers = new ArrayList<>();
+        ArrayList<String> strings = new ArrayList<>();
+        for (int i = 0; i < array.length; i++) {
+            if (isNumber(array[i])) {
+                integers.add(Integer.valueOf(array[i]));
+            } else {
+                strings.add(array[i]);
+            }
+        }
+
+
+        for (int i = 0; i < strings.size(); i++)
+            for (int j = i + 1; j < strings.size(); j++)
+                if (isGreaterThan(strings.get(i), (strings.get(j)))) {
+                    String tmp = strings.get(i);
+                    strings.set(i, strings.get(j));
+                    strings.set(j, tmp);
+                }
+
+        integers.sort(Collections.reverseOrder());
+
+        int jd = 0, js = 0;
+        for (int i = 0; i < array.length; i++)
+            if (isNumber(array[i])) {
+                array[i] = integers.get(jd).toString();
+                jd++;
+            } else {
+                array[i] = strings.get(js);
+                js++;
+            }
+
     }
 
     // Метод для сравнения строк: 'а' больше чем 'b'

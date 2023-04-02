@@ -1,9 +1,6 @@
 package com.javarush.task.task20.task2025;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
 
 /* 
 Алгоритмы-числа
@@ -11,21 +8,8 @@ import java.util.List;
 
 public class Solution {
 
-    final static int[] sizeTable = {9, 99, 999, 9999, 99999, 999999, 9999999,
-            99999999, 999999999, Integer.MAX_VALUE};
-
-    long N=0;
-    int x = 100;
-    static void stringSize(int x,long N) {
-        for (int i = 0; ; i++)
-            if (x <= sizeTable[i])
-                N++;
-    }
-
     public static long[] getNumbers(long N) {
-
         long[] result = null;
-        result[0] = N;
         return result;
     }
 

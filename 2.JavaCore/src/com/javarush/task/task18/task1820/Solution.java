@@ -5,23 +5,43 @@ package com.javarush.task.task18.task1820;
 */
 
 import java.io.*;
-import java.util.ArrayList;
 
 public class Solution {
     public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String f1 = br.readLine();
-        String f2 = br.readLine();
-        br.close();
-        FileInputStream fileInputStream = new FileInputStream(f1);
-        FileOutputStream fileOutputStream = new FileOutputStream(f2);
-        ArrayList<String> opa = new ArrayList<>();
+        BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
 
-        while (fileInputStream.available() > 0) {
-            fileOutputStream.write((Math.round(fileInputStream.read()) + " ").getBytes());
+        try {
+            // Запросимо ім'я файлу для зчитування
+            System.out.print("Введіть ім'я файлу для зчитування: ");
+            String inputFile = reader.readLine();
+
+            // Запросимо ім'я файлу для записування
+            System.out.print("Введіть ім'я файлу для записування: ");
+            String outputFile = reader.readLine();
+
+            // Створимо об'єкти для роботи з файлами
+            FileReader fileReader = new FileReader(inputFile);
+            FileWriter fileWriter = new FileWriter(outputFile);
+
+            // Зчитаємо дані з вхідного файлу та обробимо їх
+            BufferedReader bufferedReader = new BufferedReader(fileReader);
+            String line;
+            while ((line = bufferedReader.readLine()) != null) {
+                String[] numbers = line.split(" ");
+                for (String number : numbers) {
+                    double doubleNumber = Double.parseDouble(number);
+                    int roundedNumber = (int) Math.round(doubleNumber);
+                    fileWriter.write(roundedNumber + " ");
+                }
+            }
+
+            // Закриваємо об'єкти для роботи з файлами
+            bufferedReader.close();
+            fileWriter.close();
+
+            System.out.println("Операція завершена успішно.");
+        } catch (IOException e) {
+            System.out.println("Помилка: " + e.getMessage());
         }
-
-        fileInputStream.close();
-        fileOutputStream.close();
     }
 }

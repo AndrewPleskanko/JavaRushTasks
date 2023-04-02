@@ -45,14 +45,21 @@ public class Solution {
         private List<String> result = new ArrayList<String>();
 
         public void run() {
-            try {
-                while (!isInterrupted()) {
-                    String word = null;
-                    word = reader.readLine();
-                    readStringCount.incrementAndGet();
-                    System.out.println(readStringCount);
+
+            while (!isInterrupted()) {
+
+                try {
+                    if (reader.ready()) {
+                        result.add(reader.readLine());
+                        readStringCount.incrementAndGet();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e){}
+
+
+            }
+
         }
 
 

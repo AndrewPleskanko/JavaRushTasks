@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.HashMap;
-import java.util.Map;
+
 
 /* 
 Древний Рим
@@ -19,28 +19,22 @@ public class Solution {
     }
 
     public static int romanToInteger(String s) {
-        Map<String, Integer> res = new HashMap<>();
-
-        res.put("IX", 9);
-        res.put("VIII", 8);
-        res.put("VII", 7);
-        res.put("VI", 6);
-        res.put("IV", 4);
-        res.put("V", 5);
-        res.put("III", 3);
-        res.put("II", 2);
-        res.put("I", 1);
-        res.put("X", 10);
-        res.put("L", 50);
-        res.put("C", 100);
-        res.put("D", 500);
-        res.put("M", 1000);
-        int result = 0;
-
-        for (int i = 0; i < s.length(); i++) {
-            result += res.get(String.valueOf(s.toCharArray()[i]).toUpperCase());
+        int n = 0;
+        final char[] array = s.toCharArray();
+        HashMap<Character, Integer> tableOfCorrespondence = new HashMap<>();
+        tableOfCorrespondence.put('I', 1);
+        tableOfCorrespondence.put('V', 5);
+        tableOfCorrespondence.put('X', 10);
+        tableOfCorrespondence.put('L', 50);
+        tableOfCorrespondence.put('C', 100);
+        tableOfCorrespondence.put('D', 500);
+        tableOfCorrespondence.put('M', 1000);
+        for (int i = 0; i < array.length - 1; i++) {
+            int iIndex = tableOfCorrespondence.get(array[i]);
+            int iNextIndex = tableOfCorrespondence.get(array[i + 1]);
+            n += iNextIndex > iIndex ? - iIndex : iIndex;
         }
-
-        return result;
+        n += tableOfCorrespondence.get(array[array.length - 1]);
+        return n;
     }
 }
